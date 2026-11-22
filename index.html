@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Templates Download</title>
+<style>
+  :root { --bg:#0f1115; --card:#181b22; --text:#e8eaf0; --muted:#8b91a1; --accent:#4f8cff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:var(--bg); color:var(--text);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; padding:24px;
+  }
+  .card {
+    background:var(--card); border:1px solid #262a33; border-radius:16px;
+    padding:40px 36px; max-width:420px; width:100%; text-align:center;
+  }
+  .icon { font-size:48px; margin-bottom:16px; }
+  h1 { font-size:22px; font-weight:600; margin-bottom:6px; }
+  .meta { color:var(--muted); font-size:14px; margin-bottom:28px; }
+  .btn {
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--accent); color:#fff; text-decoration:none;
+    padding:14px 28px; border-radius:10px; font-size:16px; font-weight:600;
+    transition:transform .1s, filter .15s;
+  }
+  .btn:hover { filter:brightness(1.1); }
+  .btn:active { transform:scale(.97); }
+  .btn svg { width:18px; height:18px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">📦</div>
+    <h1>Templates</h1>
+    <p class="meta" id="meta">templates.zip</p>
+    <a class="btn" href="templates.zip" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+      Download
+    </a>
+  </div>
+<script>
+  // Show file size if the server reports it (works once hosted, e.g. GitHub Pages)
+  fetch('templates.zip', { method:'HEAD' }).then(r => {
+    const s = +r.headers.get('content-length');
+    if (r.ok && s) {
+      const u = ['B','KB','MB','GB']; let i = 0, n = s;
+      while (n >= 1024 && i < u.length - 1) { n /= 1024; i++; }
+      document.getElementById('meta').textContent = `templates.zip · ${n.toFixed(i ? 1 : 0)} ${u[i]}`;
+    }
+  }).catch(() => {});
+</script>
+</body>
+</html>
